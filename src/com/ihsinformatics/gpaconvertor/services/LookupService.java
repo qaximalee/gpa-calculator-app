@@ -27,8 +27,8 @@ public class LookupService implements ICrudOperations<Lookup> {
 				st = con.prepareStatement("INSERT INTO " + TABLE_NAME
 						+ " (grade, start_percentage, end_percentage, gpa) VALUES (?,?,?,?)");
 				st.setString(1, data.getGrade());
-				st.setInt(2, data.getStartParcentage());
-				st.setInt(3, data.getEndPercentage());
+				st.setDouble(2, data.getStartParcentage());
+				st.setDouble(3, data.getEndPercentage());
 				st.setDouble(4, data.getGpa());
 				st.execute();
 				return true;
@@ -82,8 +82,8 @@ public class LookupService implements ICrudOperations<Lookup> {
 				st = con.prepareStatement("UPDATE " + TABLE_NAME
 						+ " SET grade = ?, start_percentage = ?, end_percentage = ?, gpa = ? WHERE lookup_id = ?");
 				st.setString(1, data.getGrade());
-				st.setInt(2, data.getStartParcentage());
-				st.setInt(3, data.getEndPercentage());
+				st.setDouble(2, data.getStartParcentage());
+				st.setDouble(3, data.getEndPercentage());
 				st.setDouble(4, data.getGpa());
 				st.setInt(5, data.getLookupId());
 				int rowAffected = st.executeUpdate();
@@ -114,7 +114,7 @@ public class LookupService implements ICrudOperations<Lookup> {
 				List<Lookup> lookup = new ArrayList<>();
 				while (results.next()) {
 					lookup.add(new Lookup(results.getInt("lookup_id"), results.getString("grade"),
-							results.getInt("start_percentage"), results.getInt("end_percentage"),
+							results.getDouble("start_percentage"), results.getDouble("end_percentage"),
 							results.getDouble("gpa")));
 				}
 				if (lookup != null)
@@ -145,7 +145,7 @@ public class LookupService implements ICrudOperations<Lookup> {
 				ResultSet results = st.executeQuery();
 				while (results.next()) {
 					lookup = new Lookup(results.getInt("lookup_id"), results.getString("grade"),
-							results.getInt("start_percentage"), results.getInt("end_percentage"),
+							results.getDouble("start_percentage"), results.getDouble("end_percentage"),
 							results.getDouble("gpa"));
 				}
 				return lookup;

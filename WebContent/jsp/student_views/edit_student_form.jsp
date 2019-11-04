@@ -16,20 +16,20 @@
 	
 	<h1>Edit Form</h1>
 	<form action="edit_student.jsp" method="post">
-		<input type="hidden" name="id" value="<%=std.getStudentId()%>" />
+		<input type="hidden" name="studentId" value="<%= std.getStudentId() %>" />
 		<table>
 			<tr>
 				<td>First Name:</td>
-				<td><input type="text" name="firstName" value="<%=std.getFirstName()%>" /></td>
+				<td><input type="text" name="firstName" value="<%= std.getFirstName() %>" /></td>
 			</tr>
 			<tr>
 				<td>Last Name:</td>
 				<td><input type="text" name="lastName"
-					value="<%=std.getLastName()%>" /></td>
+					value="<%= std.getLastName() %>" /></td>
 			</tr>
 			<tr>
 				<td>Registration No:</td>
-				<td><input type="email" name="email" value="<%=std.getRegistrationNo()%>" /></td>
+				<td><input type="text" name="registrationNo" value="<%= std.getRegistrationNo() %>" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Edit User" /></td>

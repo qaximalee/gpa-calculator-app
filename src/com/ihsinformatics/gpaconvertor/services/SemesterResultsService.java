@@ -24,19 +24,34 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
 			con = DBConnection.getInstance().getConnection();
 			if (connected) {
-				st = con.prepareStatement("INSERT INTO " + TABLE_NAME
-						+ " ( semester_id, student_id, semester_gpa, cgpa) VALUES(?,?,?,?)");
-				st.setInt(1, data.getSemesterId());
-				st.setInt(2, data.getStudentId());
-				st.setDouble(3, data.getSemesterGPA());
-				st.setDouble(4, data.getcGPA());
 
-				st.execute();
-				return true;
+				st = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE student_id = ? AND semester_id = ?");
+				st.setInt(1, data.getStudentId());
+				st.setInt(2, data.getSemesterId());
+				ResultSet rs = st.executeQuery();
+
+				if (rs.first()) {
+					int semResultsId = rs.getInt("semester_results_id");
+					data.setSemesterResultId(semResultsId);
+					update(data);
+					return true;
+				} else {
+
+					st = con.prepareStatement("INSERT INTO " + TABLE_NAME
+							+ " ( semester_id, student_id, semester_gpa, cgpa) VALUES(?,?,?,?)");
+					st.setInt(1, data.getSemesterId());
+					st.setInt(2, data.getStudentId());
+					st.setDouble(3, data.getSemesterGPA());
+					st.setDouble(4, data.getcGPA());
+
+					st.execute();
+					return true;
+				}
 			} else {
 				System.out.println("Problem");
 				return false;
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,5 +176,4 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 
 		return null;
 	}
-
 }

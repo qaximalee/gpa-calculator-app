@@ -166,4 +166,35 @@ public class CourseResultsService implements ICrudOperations<CourseResults> {
 		return null;
 	}
 
+	public List<CourseResults> getAllCourseResultsBySemester(int semesterId, int studentId) {
+		List<CourseResults> listOfCourseResults = new ArrayList<>();
+
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
+			con = DBConnection.getInstance().getConnection();
+			if (connected) {
+				st = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE student_id = ? "
+						+ "AND course_id IN (SELECT course_id From Course WHERE semester_id = ?)");
+				st.setInt(1, studentId);
+				st.setInt(2, semesterId);
+				ResultSet results = st.executeQuery();
+				while (results.next()) {
+					listOfCourseResults.add(new CourseResults(results.getInt("course_result_id"),
+							results.getInt("course_id"), results.getInt("student_id"), results.getDouble("percentage"),
+							results.getDouble("gpa"), results.getString("grade"), results.getDouble("total_points")));
+				}
+				return listOfCourseResults;
+			} else {
+				System.out.println("Problem");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

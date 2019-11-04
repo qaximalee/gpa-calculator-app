@@ -8,6 +8,7 @@ import com.ihsinformatics.gpaconvertor.entities.CourseResults;
 import com.ihsinformatics.gpaconvertor.entities.Lookup;
 import com.ihsinformatics.gpaconvertor.entities.Semester;
 import com.ihsinformatics.gpaconvertor.entities.SemesterResults;
+import com.ihsinformatics.gpaconvertor.entities.Student;
 import com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations;
 import com.ihsinformatics.gpaconvertor.services.CourseResultsService;
 import com.ihsinformatics.gpaconvertor.services.CourseService;
@@ -35,6 +36,11 @@ public class GPACalculator {
 		// System.out.println("Course Code: " + inputs.getCourseCode());
 		// System.out.println("Semester No: " + inputs.getSemesterNo());
 		// System.out.println("Percentage: " + inputs.getCourseCode() + "%");
+
+		if (studentOprt.update(new Student(12, "EP-1450099", "Saleem", "Khan")))
+			System.out.println("Updated Successfully...");
+		else
+			System.out.println("Something goes wrong...");
 
 		List<Course> courseList = courseOprt.getAll();
 		if (courseList != null) {

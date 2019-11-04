@@ -81,7 +81,7 @@ public class CourseService implements ICrudOperations<Course> {
 				st.setInt(1, data.getCourseCode());
 				st.setString(2, data.getName());
 				st.setInt(3, data.getSemesterId());
-				st.setInt(7, data.getCourseId());
+				st.setInt(4, data.getCourseId());
 				int rowAffected = st.executeUpdate();
 				if (rowAffected > 0)
 					return true;
@@ -156,5 +156,4 @@ public class CourseService implements ICrudOperations<Course> {
 
 		return null;
 	}
-
 }

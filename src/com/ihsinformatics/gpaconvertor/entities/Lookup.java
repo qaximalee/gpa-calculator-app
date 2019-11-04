@@ -3,14 +3,14 @@ package com.ihsinformatics.gpaconvertor.entities;
 public class Lookup {
 	private int lookupId;
 	private String grade;
-	private int startParcentage;
-	private int endPercentage;
+	private double startParcentage;
+	private double endPercentage;
 	private double gpa;
 
 	public Lookup() {
 	}
 
-	public Lookup(int lookupId, String grade, int startParcentage, int endPercentage, double gpa) {
+	public Lookup(int lookupId, String grade, double startParcentage, double endPercentage, double gpa) {
 		super();
 		this.lookupId = lookupId;
 		this.grade = grade;
@@ -35,19 +35,19 @@ public class Lookup {
 		this.grade = grade;
 	}
 
-	public int getStartParcentage() {
+	public double getStartParcentage() {
 		return startParcentage;
 	}
 
-	public void setStartParcentage(int startParcentage) {
+	public void setStartParcentage(double startParcentage) {
 		this.startParcentage = startParcentage;
 	}
 
-	public int getEndPercentage() {
+	public double getEndPercentage() {
 		return endPercentage;
 	}
 
-	public void setEndPercentage(int endPercentage) {
+	public void setEndPercentage(double endPercentage) {
 		this.endPercentage = endPercentage;
 	}
 

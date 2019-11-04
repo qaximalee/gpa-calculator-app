@@ -34,8 +34,8 @@
 				<td>${std.getFirstName()}</td>
 				<td>${std.getLastName()}</td>
 				<td>${std.getRegistrationNo()}</td>
-				<td><a href="edit_student.jsp?id=${u.getId()}">Edit</a></td>
-				<td><a href="deleteuser.jsp?id=${u.getId()}">Delete</a></td>
+				<td><a href="edit_student_form.jsp?id=${std.getStudentId()}">Edit</a></td>
+				<td><a href="delete_student.jsp?id=${std.getStudentId()}">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

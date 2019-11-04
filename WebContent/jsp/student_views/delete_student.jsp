@@ -3,8 +3,11 @@
 <jsp:useBean id="std" class="com.ihsinformatics.gpaconvertor.entities.Student"></jsp:useBean>  
 <jsp:setProperty property="*" name="std"/>  
 <%  
+String strId = request.getParameter("id");
 ICrudOperations<Student> stdOprt = new StudentService();
-if(stdOprt.update(new Student(std.getStudentId(), std.getRegistrationNo(), std.getFirstName(), std.getLastName())))
-	response.sendRedirect("view_students.jsp");
 
+if(stdOprt.delete(Integer.parseInt(strId)))
+	response.sendRedirect("view_students.jsp");
+else
+	response.sendRedirect("delete_error.jsp");
 %>  

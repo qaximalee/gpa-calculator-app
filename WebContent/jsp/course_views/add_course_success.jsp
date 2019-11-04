@@ -2,11 +2,9 @@
 <html>  
 <head>  
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
-<title>Add Semester Form</title>  
+<title>Semester Added</title>  
 </head>  
 <body>  
-  
-<jsp:include page="semester_form.html"></jsp:include>  
-  
+	<h2>Semester Added Successfully</h2>
 </body>  
 </html>  
