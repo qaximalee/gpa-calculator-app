@@ -23,6 +23,7 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 		try {
 			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
 			con = DBConnection.getInstance().getConnection();
+			data.setcGPA(getCGPA(con, st, data.getStudentId()));
 			if (connected) {
 
 				st = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE student_id = ? AND semester_id = ?");
@@ -30,13 +31,13 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 				st.setInt(2, data.getSemesterId());
 				ResultSet rs = st.executeQuery();
 
+				// Check this student has submit the results for the same semester id
 				if (rs.first()) {
 					int semResultsId = rs.getInt("semester_results_id");
 					data.setSemesterResultId(semResultsId);
 					update(data);
 					return true;
 				} else {
-
 					st = con.prepareStatement("INSERT INTO " + TABLE_NAME
 							+ " ( semester_id, student_id, semester_gpa, cgpa) VALUES(?,?,?,?)");
 					st.setInt(1, data.getSemesterId());
@@ -51,12 +52,31 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 				System.out.println("Problem");
 				return false;
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private double getCGPA(Connection conn, PreparedStatement st, int studentId) {
+		try {
+			st = conn.prepareStatement("SELECT * FROM course_results WHERE student_id = ?");
+			st.setInt(1, studentId);
+			ResultSet rs1 = st.executeQuery();
+			double cGPAPoints = 0.0;
+			int totalCreditHours = 0;
+			while (rs1.next()) {
+				cGPAPoints += rs1.getDouble("total_points");
+				totalCreditHours += 3;
+			}
+			double cGPA = cGPAPoints / totalCreditHours;
+			return cGPA;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0.0;
 	}
 
 	@Override
