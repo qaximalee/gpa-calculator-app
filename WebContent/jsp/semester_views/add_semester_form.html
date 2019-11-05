@@ -1,15 +1,14 @@
-<a href="view_semesters.jsp">View All Records</a>
-<br />
+<div class="container">
+	<a href="view_semesters.jsp">View All Records</a> <br />
 
-<h1>Add New Semester</h1>
-<form action="add_semester.jsp" method="post">
-	<table>
-		<tr>
-			<td>Semester No:</td>
-			<td><input type="text" name="semesterNo" /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="Add Semester" /></td>
-		</tr>
-	</table>
-</form>
+	<h1>Add New Semester</h1>
+	<form action="add_semester.jsp" method="post">
+		<div class="form-group">
+			<label for="semesterNo">Semester No:</label> <input type="text"
+				class="form-control" id="semesterNo" placeholder="Enter Semester No"
+				name="semesterNo">
+		</div>
+		<button type="submit" class="btn btn-default">Create Semester</button>
+		
+	</form>
+</div>

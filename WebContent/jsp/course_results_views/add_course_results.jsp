@@ -26,7 +26,7 @@
 		}
 	}
 	
-	double totalPoints = gpa * 3;
+	double totalPoints = Double.parseDouble(String.format("%.2f",gpa * 3));
 	
 	CourseResults courseResultUpdated = new CourseResults(0, courseResults.getCourseId(), courseResults.getStudentId(), percentage, gpa, grade.toString(), totalPoints);
 	grade.replace(0, grade.length(), "");

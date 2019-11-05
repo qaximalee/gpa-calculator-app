@@ -1,5 +1,7 @@
 package com.ihsinformatics.gpaconvertor.entities;
 
+import java.text.DecimalFormat;
+
 public class SemesterResults {
 
 	private int semesterResultId;
@@ -8,13 +10,15 @@ public class SemesterResults {
 	private double semesterGPA;
 	private double cGPA;
 
+	private static DecimalFormat df2 = new DecimalFormat("#.##");
+
 	public SemesterResults(int semesterResultId, int semesterId, int studentId, double semesterGPA, double cGPA) {
 		super();
 		this.semesterResultId = semesterResultId;
 		this.semesterId = semesterId;
 		this.studentId = studentId;
-		this.semesterGPA = semesterGPA;
-		this.cGPA = cGPA;
+		this.semesterGPA = Double.parseDouble(df2.format(semesterGPA));
+		this.cGPA = Double.parseDouble(df2.format(cGPA));
 	}
 
 	public int getSemesterResultId() {
@@ -46,7 +50,7 @@ public class SemesterResults {
 	}
 
 	public void setSemesterGPA(double semesterGPA) {
-		this.semesterGPA = semesterGPA;
+		this.semesterGPA = Double.parseDouble(df2.format(semesterGPA));
 	}
 
 	public double getcGPA() {
@@ -54,6 +58,6 @@ public class SemesterResults {
 	}
 
 	public void setcGPA(double cGPA) {
-		this.cGPA = cGPA;
+		this.cGPA = Double.parseDouble(df2.format(cGPA));
 	}
 }

@@ -1,5 +1,7 @@
 package com.ihsinformatics.gpaconvertor.entities;
 
+import java.text.DecimalFormat;
+
 public class CourseResults {
 	private int courseResultId;
 	private int courseId;
@@ -8,6 +10,8 @@ public class CourseResults {
 	private double gpa;
 	private String grade;
 	private double totalPoints;
+
+	private static DecimalFormat df2 = new DecimalFormat("#.##");
 
 	public CourseResults() {
 	}
@@ -19,9 +23,9 @@ public class CourseResults {
 		this.courseId = courseId;
 		this.studentId = studentId;
 		this.percentage = percentage;
-		this.gpa = gpa;
+		this.gpa = Double.parseDouble(df2.format(gpa));
 		this.grade = grade;
-		this.totalPoints = totalPoints;
+		this.totalPoints = Double.parseDouble(df2.format(totalPoints));
 	}
 
 	public int getCourseResultId() {
@@ -53,7 +57,7 @@ public class CourseResults {
 	}
 
 	public void setPercentage(double percentage) {
-		this.percentage = percentage;
+		this.percentage = Double.parseDouble(df2.format(percentage));
 	}
 
 	public double getGpa() {
@@ -61,7 +65,7 @@ public class CourseResults {
 	}
 
 	public void setGpa(double gpa) {
-		this.gpa = gpa;
+		this.gpa = Double.parseDouble(df2.format(gpa));
 	}
 
 	public String getGrade() {
@@ -77,6 +81,6 @@ public class CourseResults {
 	}
 
 	public void setTotalPoints(double totalPoints) {
-		this.totalPoints = totalPoints;
+		this.totalPoints = Double.parseDouble(df2.format(totalPoints));
 	}
 }
