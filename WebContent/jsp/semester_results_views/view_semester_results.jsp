@@ -1,7 +1,6 @@
 <!DOCTYPE html>
+<%@page import="com.ihsinformatics.gpaconvertor.pojo.SemesterResultsPOJO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations"%>
-<%@page import="com.ihsinformatics.gpaconvertor.entities.SemesterResults"%>
 <%@page import="com.ihsinformatics.gpaconvertor.services.SemesterResultsService"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
@@ -18,12 +17,10 @@
 </head>
 <body>
 
-
-
 	<%
-		ICrudOperations<SemesterResults> semResOprt = new SemesterResultsService();
+		SemesterResultsService semResOprt = new SemesterResultsService();
 
-		List<SemesterResults> list = semResOprt.getAll();
+		List<SemesterResultsPOJO> list = semResOprt.getAllReadableResults();
 		request.setAttribute("list", list);
 	%>
 
@@ -32,9 +29,10 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Semester ID</th>
-					<th>Student ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Registration No</th>
+					<th>Semester</th>
 					<th>Semester GPA</th>
 					<th>CGPA</th>
 				</tr>
@@ -42,9 +40,10 @@
 			<tbody>
 				<c:forEach items="${list}" var="semRes">
 					<tr>
-						<td>${semRes.getSemesterResultId()}</td>
-						<td>${semRes.getSemesterId()}</td>
-						<td>${semRes.getStudentId()}</td>
+						<td>${semRes.getFirstName()}</td>
+						<td>${semRes.getLastName()}</td>
+						<td>${semRes.getRegistrationNo()}</td>
+						<td>${semRes.getSemesterNo()}</td>
 						<td>${semRes.getSemesterGPA()}</td>
 						<td>${semRes.getcGPA()}</td>
 					</tr>

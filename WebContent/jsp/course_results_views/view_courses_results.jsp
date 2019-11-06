@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<%@page import="com.ihsinformatics.gpaconvertor.pojo.CourseResultsPOJO"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -7,10 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- include the script -->
+<script src="../../js_lib/alertify.min.js"></script>
+<!-- include the style -->
+<link rel="stylesheet" href="../../js_lib/css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="../../js_lib/css/themes/default.min.css" />
+	
+	
 </head>
 <body>
 
@@ -22,17 +27,19 @@
 		<h1>Courses Results List</h1>
 
 		<%
-			ICrudOperations<CourseResults> courseOprt = new CourseResultsService();
+			CourseResultsService courseOprt = new CourseResultsService();
 
-			List<CourseResults> list = courseOprt.getAll();
+			List<CourseResultsPOJO> list = courseOprt.getAllReadableResults();
 			request.setAttribute("list", list);
 		%>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Course Id</th>
-					<th>Student Id</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Registration No</th>
+					<th>Course Name</th>
+					<th>Semester</th>
 					<th>Percentage</th>
 					<th>GPA</th>
 					<th>Grade</th>
@@ -42,17 +49,19 @@
 			<tbody>
 				<c:forEach items="${list}" var="courseResults">
 					<tr>
-						<td>${courseResults.getCourseResultId()}</td>
-						<td>${courseResults.getCourseId()}</td>
-						<td>${courseResults.getStudentId()}</td>
+						<td>${courseResults.getFirstName()}</td>
+						<td>${courseResults.getLastName()}</td>
+						<td>${courseResults.getRegistrationNo()}</td>
+						<td>${courseResults.getCourseName()}</td>
+						<td>${courseResults.getSemesterNo()}</td>
 						<td>${courseResults.getPercentage()}</td>
 						<td>${courseResults.getGpa()}</td>
 						<td>${courseResults.getGrade()}</td>
 						<td>${courseResults.getTotalPoints()}</td>
 						<td><a
-							href="edit_course_results_form.jsp?id=${std.getCourseResultId()}">Edit</a></td>
+							href="edit_course_results_form.jsp?id=${courseResults.getCourseResultId()}">Edit</a></td>
 						<td><a
-							href="delete_course_results.jsp?id=${std.getCourseResultId()}">Delete</a></td>
+							href="delete_course_results.jsp?id=${courseResults.getCourseResultId()}" id="delete" >Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -60,4 +69,14 @@
 		<br /> <a href="add_course_results_form.jsp">Add New Course</a>
 	</div>
 </body>
+<script type="text/javascript">
+var elementIsClicked = false; // declare the variable that tracks the state
+
+	function clickHandler() { // declare a function that updates the state
+		elementIsClicked = true;
+	}
+
+	var element = document.getElementById('delete'); // grab a reference to your element
+	element.addEventListener('click', clickHandler);
+</script>
 </html>

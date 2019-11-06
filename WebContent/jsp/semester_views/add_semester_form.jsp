@@ -12,7 +12,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>  
 <body>  
-  
 <jsp:include page="add_semester_form.html"></jsp:include>  
   
 </body>  

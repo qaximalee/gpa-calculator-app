@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ihsinformatics.gpaconvertor.entities.SemesterResults;
 import com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations;
+import com.ihsinformatics.gpaconvertor.pojo.SemesterResultsPOJO;
 import com.ihsinformatics.gpaconvertor.singleton.DBConnection;
 
 public class SemesterResultsService implements ICrudOperations<SemesterResults> {
@@ -150,6 +151,36 @@ public class SemesterResultsService implements ICrudOperations<SemesterResults> 
 				while (results.next()) {
 					semesterResults.add(new SemesterResults(results.getInt("semester_results_id"),
 							results.getInt("semester_id"), results.getInt("student_id"),
+							results.getDouble("semester_gpa"), results.getDouble("cgpa")));
+				}
+				if (semesterResults != null)
+					return semesterResults;
+			} else {
+				System.out.println("Problem");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<SemesterResultsPOJO> getAllReadableResults() {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
+			con = DBConnection.getInstance().getConnection();
+			if (connected) {
+				st = con.prepareStatement("CALL getAllSemesterResults()");
+				ResultSet results = st.executeQuery();
+				List<SemesterResultsPOJO> semesterResults = new ArrayList<>();
+				while (results.next()) {
+					semesterResults.add(new SemesterResultsPOJO(results.getInt("semester_results_id"),
+							results.getString("first_name"), results.getString("last_name"),
+							results.getString("registration_no"), results.getInt("semester_no"),
 							results.getDouble("semester_gpa"), results.getDouble("cgpa")));
 				}
 				if (semesterResults != null)

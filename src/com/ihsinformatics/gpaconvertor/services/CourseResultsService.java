@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ihsinformatics.gpaconvertor.entities.CourseResults;
 import com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations;
+import com.ihsinformatics.gpaconvertor.pojo.CourseResultsPOJO;
 import com.ihsinformatics.gpaconvertor.singleton.DBConnection;
 
 public class CourseResultsService implements ICrudOperations<CourseResults> {
@@ -55,7 +56,7 @@ public class CourseResultsService implements ICrudOperations<CourseResults> {
 			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
 			con = DBConnection.getInstance().getConnection();
 			if (connected) {
-				st = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE courseResult_id = ?");
+				st = con.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE course_result_id = ?");
 				st.setInt(1, id);
 				int rowAffected = st.executeUpdate();
 				if (rowAffected > 0)
@@ -134,6 +135,38 @@ public class CourseResultsService implements ICrudOperations<CourseResults> {
 		return null;
 	}
 
+	public List<CourseResultsPOJO> getAllReadableResults() {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
+			con = DBConnection.getInstance().getConnection();
+			if (connected) {
+				st = con.prepareStatement("CALL getAllCourseResults()");
+				ResultSet results = st.executeQuery();
+				List<CourseResultsPOJO> courseResult = new ArrayList<>();
+				while (results.next()) {
+					courseResult.add(new CourseResultsPOJO(results.getInt("course_result_id"),
+							results.getString("first_name"), results.getString("last_name"),
+							results.getString("registration_no"), results.getString("name"),
+							results.getInt("semester_no"), results.getDouble("percentage"), results.getDouble("gpa"),
+							results.getString("grade"), results.getDouble("total_points")));
+
+				}
+				if (courseResult != null)
+					return courseResult;
+			} else {
+				System.out.println("Problem");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	@Override
 	public CourseResults getSingle(int id) {
 		// TODO Auto-generated method stub
@@ -166,6 +199,17 @@ public class CourseResultsService implements ICrudOperations<CourseResults> {
 		return null;
 	}
 
+	/*
+	 * By using Semester and Student's Id it will get all the courses results for
+	 * the specific
+	 * 
+	 * @param int semesterId for specific semester
+	 * 
+	 * @param int studentId Course Results for specific student
+	 * 
+	 * @return List<CourseResults> all courses results of all students
+	 */
+
 	public List<CourseResults> getAllCourseResultsBySemester(int semesterId, int studentId) {
 		List<CourseResults> listOfCourseResults = new ArrayList<>();
 
@@ -175,10 +219,15 @@ public class CourseResultsService implements ICrudOperations<CourseResults> {
 			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
 			con = DBConnection.getInstance().getConnection();
 			if (connected) {
-				st = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE student_id = ? "
-						+ "AND course_id IN (SELECT course_id From Course WHERE semester_id = ?)");
-				st.setInt(1, studentId);
-				st.setInt(2, semesterId);
+
+				/*
+				 * Here I have used Store Procedure for getting results w.r.t student and
+				 * semester's IDs
+				 */
+				st = con.prepareStatement("Call getCourseResults(?,?)");
+				st.setInt(1, semesterId);
+				st.setInt(2, studentId);
+
 				ResultSet results = st.executeQuery();
 				while (results.next()) {
 					listOfCourseResults.add(new CourseResults(results.getInt("course_result_id"),

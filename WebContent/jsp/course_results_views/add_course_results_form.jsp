@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<%@page import="com.ihsinformatics.gpaconvertor.services.SemesterService"%>
+<%@page import="com.ihsinformatics.gpaconvertor.entities.Semester"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Semester Form</title>
+<title>Add Course Result</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -12,7 +14,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.CourseService, com.ihsinformatics.gpaconvertor.entities.Course,
  	com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -26,8 +27,8 @@
 
 
 	<div class="container">
-		<a href="view_courses_results.jsp" style="float:right">View All Courses</a>
-		<h1>Add Course</h1>
+		<a href="view_courses_results.jsp" style="float:right">View All Courses Results</a>
+		<h1>Add Course Results</h1>
 
 		<%
 			ICrudOperations<Course> courseOprt = new CourseService();
@@ -39,6 +40,10 @@
 
 			List<Student> studentList = studentOprt.getAll();
 			request.setAttribute("studentList", studentList);
+			
+			ICrudOperations<Semester> semesterOprt = new SemesterService();
+			List<Semester> semesterList = semesterOprt.getAll();
+			request.setAttribute("semesterList", semesterList);
 		%>
 
 		<form action="add_course_results.jsp" method="post">
@@ -53,8 +58,17 @@
 				</select>
 			</div>
 			<div class="form-group">
+				<label for="semesterId">Semester Id:</label> <select name="semesterId"
+					required >
+					<c:forEach items="${semesterList}" var="semester">
+								<option value='<c:out value="${semester.getSemesterId()}"/>'><c:out
+										value="${semester.getSemesterNo()}" /></option>
+							</c:forEach>
+				</select>
+			</div>
+			<div class="form-group">
 				<label for="courseId">Course Id:</label> <select name="courseId"
-					required>
+					required >
 					<c:forEach items="${courseList}" var="course">
 								<option value='<c:out value="${course.getCourseId()}"/>'><c:out
 										value="${course.getCourseCode()}" /></option>

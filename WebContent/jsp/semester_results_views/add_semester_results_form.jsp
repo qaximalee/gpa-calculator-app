@@ -12,7 +12,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.SemesterService, com.ihsinformatics.gpaconvertor.entities.Semester,
  		com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List, 
