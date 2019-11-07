@@ -13,6 +13,6 @@
 
 	<jsp:include page="jsp/header/nav_bar.jsp"></jsp:include>
 	
-
+	<a href="jsp/semester_results_views/getCoursesBySemester.jsp">Get Courses</a>
 </body>
 </html>

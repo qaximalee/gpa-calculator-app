@@ -12,6 +12,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.StudentService, com.ihsinformatics.gpaconvertor.entities.Student,
  com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations"%>

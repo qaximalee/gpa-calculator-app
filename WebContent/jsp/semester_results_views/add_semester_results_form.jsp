@@ -12,6 +12,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.SemesterService, com.ihsinformatics.gpaconvertor.entities.Semester,
  		com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List, 
@@ -39,9 +41,11 @@
 
 			List<Student> studentList = studentOprt.getAll();
 			request.setAttribute("studentList", studentList);
+			
+			
 		%>
 
-		<form action="add_semester_results.jsp" method="post">
+		<form action="${pageContext.request.contextPath}/addSemesterServlet" method="post">
 			<div class="form-group">
 				<label for="studentId">Student Id:</label> <select name="studentId"
 					required>
@@ -64,5 +68,7 @@
 		</form>
 
 	</div>
+	
+	
 </body>
 </html>

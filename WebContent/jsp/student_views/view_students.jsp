@@ -7,13 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- include the script -->
+<script src="../../js_lib/alertify.min.js"></script>
+<!-- include the style -->
+<link rel="stylesheet" href="../../js_lib/css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="../../js_lib/css/themes/default.min.css" />
 </head>
 <body>
-
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.StudentService, com.ihsinformatics.gpaconvertor.entities.Student,
  com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -21,6 +23,12 @@
 
 
 	<%
+		if(request.getParameter("from") != null){ 
+		%>
+			<input type="hidden" id="fromRequest" value="<%= request.getParameter("from") %>">
+	<%		
+		} 
+	
 		ICrudOperations<Student> stdOprt = new StudentService();
 
 		List<Student> list = stdOprt.getAll();
@@ -54,6 +62,19 @@
 		<br />
 		<a href="add_student_form.jsp">Add New Student</a>
 	</div>
-
+	<script type="text/javascript">
+	
+		var fromRequest = document.getElementById("fromRequest").value;
+		if(fromRequest == "from-create"){
+			alertify.success('Student Added');
+			document.getElementById("fromRequest").value = null;
+		}else if( fromRequest == "from-edit"){
+			alertify.success('Student Updated');
+			document.getElementById("fromRequest").value = null;
+		}else if( fromRequest == "from-delete"){
+			alertify.success('Student Deleted');
+			document.getElementById("fromRequest").value = null;
+		}
+	</script>
 </body>
 </html>

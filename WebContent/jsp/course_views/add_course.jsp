@@ -11,7 +11,8 @@
 	ICrudOperations<Course> courseService = new CourseService();
 	
 	if (courseService.save(course)) {
-		response.sendRedirect("add_course_success.jsp");
+		String str = "from-create";
+		response.sendRedirect("view_courses.jsp?from="+str);
 	} else {
 		response.sendRedirect("add_course_error.jsp");
 	} 

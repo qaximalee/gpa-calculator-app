@@ -14,6 +14,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.CourseService, com.ihsinformatics.gpaconvertor.entities.Course,
  	com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -58,7 +59,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="semesterId">Semester Id:</label> <select name="semesterId"
+				<label for="semesterId">Semester Id:</label> <select name="semesterId" id="semesterId" onchange="getSem()"
 					required >
 					<c:forEach items="${semesterList}" var="semester">
 								<option value='<c:out value="${semester.getSemesterId()}"/>'><c:out
@@ -67,7 +68,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="courseId">Course Id:</label> <select name="courseId"
+				<label for="courseId">Course Id:</label> <select name="courseId" id="courseId"
 					required >
 					<c:forEach items="${courseList}" var="course">
 								<option value='<c:out value="${course.getCourseId()}"/>'><c:out
@@ -83,6 +84,28 @@
 			<button type="submit" class="btn btn-default">Create Course Results</button>
 		</form>
 	</div>
+	<script type="text/javascript">
+		function getSem(){
+			var s = document.getElementById("semesterId");
+			var selNum = s.options[s.selectedIndex].value;
+			let dropdown = $('#courseId');
 
+			dropdown.empty();
+
+			dropdown.append('<option selected="true" disabled>Choose Course</option>');
+			dropdown.prop('selectedIndex', 0);
+
+			const url = "getCoursesBySemester.jsp?semesterID="+selNum;
+
+			// Populate dropdown with list of provinces
+			$.getJSON(url, function (data) {
+			  $.each(data, function (key, entry) {
+			    dropdown.append($('<option></option>').attr('value', entry.courseId).text(entry.name));
+			  })
+			});
+		}
+		
+		
+	</script>
 </body>
 </html>

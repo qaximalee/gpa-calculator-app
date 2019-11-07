@@ -31,7 +31,8 @@
 	CourseResults courseResultUpdated = new CourseResults(0, courseResults.getCourseId(), courseResults.getStudentId(), percentage, gpa, grade.toString(), totalPoints);
 	grade.replace(0, grade.length(), "");
 	if (courseResultsService.save(courseResultUpdated)) {
-		response.sendRedirect("add_course_results_success.jsp");
+		String str = "from-create";
+		response.sendRedirect("view_courses_results.jsp?from="+str);
 	} else {
 		response.sendRedirect("add_course_results_error.jsp");
 	} 

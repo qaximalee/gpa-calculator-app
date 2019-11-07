@@ -5,8 +5,10 @@
 <%  
 ICrudOperations<Student> stdOprt = new StudentService();
 
-if(stdOprt.update(new Student(std.getStudentId(), std.getRegistrationNo(), std.getFirstName(), std.getLastName())))
-	response.sendRedirect("view_students.jsp");
+if(stdOprt.update(new Student(std.getStudentId(), std.getRegistrationNo(), std.getFirstName(), std.getLastName()))){
+	String str = "from-edit";
+	response.sendRedirect("view_students.jsp?from="+str);
+}
 else
 	response.sendRedirect("update_error.jsp");
 %>  

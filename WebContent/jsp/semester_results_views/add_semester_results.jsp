@@ -32,7 +32,8 @@
 			Integer.parseInt(request.getParameter("studentId")), semesterGPA, semesterGPA);
 	
 	if (semesterResultsService.save(semesterResultsUpdated)) {
-		response.sendRedirect("add_semester_results_success.jsp");
+		String str = "from-create";
+		response.sendRedirect("view_semester_results.jsp?from="+str);
 	} else {
 		response.sendRedirect("add_semester_results_error.jsp");
 	} 

@@ -5,8 +5,9 @@
 <%  
 ICrudOperations<Semester> semesterOprt = new SemesterService();
 
-if(semesterOprt.update(new Semester(std.getSemesterId(), std.getSemesterNo())))
-	response.sendRedirect("view_semesters.jsp");
-else
+if(semesterOprt.update(new Semester(std.getSemesterId(), std.getSemesterNo()))){
+	String str = "from-edit";
+	response.sendRedirect("view_semesters.jsp?from="+str);
+}else
 	response.sendRedirect("update_error.jsp");
 %>  

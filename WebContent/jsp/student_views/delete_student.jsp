@@ -6,8 +6,9 @@
 String strId = request.getParameter("id");
 ICrudOperations<Student> stdOprt = new StudentService();
 
-if(stdOprt.delete(Integer.parseInt(strId)))
-	response.sendRedirect("view_students.jsp");
-else
+if(stdOprt.delete(Integer.parseInt(strId))){
+	String str = "from-delete";
+	response.sendRedirect("view_students.jsp?from="+str);
+}else
 	response.sendRedirect("delete_error.jsp");
 %>  

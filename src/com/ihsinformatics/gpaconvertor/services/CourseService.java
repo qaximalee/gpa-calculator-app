@@ -156,4 +156,32 @@ public class CourseService implements ICrudOperations<Course> {
 
 		return null;
 	}
+
+	public List<Course> getCoursesBySemester(int semesterId) {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			boolean connected = DBConnection.getInstance().getDBUtility().tryConnection();
+			con = DBConnection.getInstance().getConnection();
+			if (connected) {
+				st = con.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE semester_id = ?");
+				st.setInt(1, semesterId);
+				ResultSet results = st.executeQuery();
+				List<Course> course = new ArrayList<>();
+				while (results.next()) {
+					course.add(new Course(results.getInt("course_id"), results.getInt("code"),
+							results.getString("name"), results.getInt("semester_id")));
+				}
+				if (course != null)
+					return course;
+			} else {
+				System.out.println("Problem");
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

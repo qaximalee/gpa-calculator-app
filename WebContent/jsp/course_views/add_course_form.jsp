@@ -12,6 +12,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.SemesterService, com.ihsinformatics.gpaconvertor.entities.Semester,
  	com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -35,12 +37,7 @@
 					name="courseCode">
 			</div>
 			<div class="form-group">
-				<label for="name">Course Name:</label> <input type="text"
-					class="form-control" id="name" placeholder="Enter Course Name"
-					name="name">
-			</div>
-			<div class="form-group">
-				<label for="name">Semester No:</label> <select name="semesterId"
+				<label for="name">Semester No:</label> <select name="semesterId" 
 					required>
 					<c:forEach items="${list}" var="semester">
 						<option value='<c:out value="${semester.getSemesterId()}"/>'><c:out
@@ -48,8 +45,14 @@
 					</c:forEach>
 				</select>
 			</div>
+			<div class="form-group">
+				<label for="name">Course Name:</label> <input type="text"
+					class="form-control" id="name" placeholder="Enter Course Name"
+					name="name">
+			</div>
 			<button type="submit" class="btn btn-default">Create Course</button>
 		</form>
 	</div>
+	
 </body>
 </html>

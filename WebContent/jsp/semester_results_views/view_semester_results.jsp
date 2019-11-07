@@ -10,14 +10,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- include the script -->
+<script src="../../js_lib/alertify.min.js"></script>
+<!-- include the style -->
+<link rel="stylesheet" href="../../js_lib/css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="../../js_lib/css/themes/default.min.css" />
+
 </head>
 <body>
-
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%
+		if(request.getParameter("from") != null ){ 
+		%>
+			<input type="hidden" id="fromRequest" value="<%= request.getParameter("from") %>">
+	<%		
+		} 
+	
 		SemesterResultsService semResOprt = new SemesterResultsService();
 
 		List<SemesterResultsPOJO> list = semResOprt.getAllReadableResults();
@@ -52,6 +61,16 @@
 		</table>
 		<br /> <a href="add_semester_results_form.jsp">Add New Semester Results</a>
 	</div>
+	<script type="text/javascript">
+	
+		var fromRequest = document.getElementById("fromRequest").value;
+		if(fromRequest != null){
+			alertify.success('Semester Result Added');
+			document.getElementById("fromRequest").value = null;
+		}
+		
+	</script>
 
 </body>
 </html>
+

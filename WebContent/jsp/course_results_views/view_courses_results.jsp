@@ -14,11 +14,11 @@
 <link rel="stylesheet" href="../../js_lib/css/alertify.min.css" />
 <!-- include a theme -->
 <link rel="stylesheet" href="../../js_lib/css/themes/default.min.css" />
-	
-	
+
+
 </head>
 <body>
-
+	<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.CourseResultsService, com.ihsinformatics.gpaconvertor.entities.CourseResults,
  com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -27,6 +27,12 @@
 		<h1>Courses Results List</h1>
 
 		<%
+			if (request.getParameter("from") != null) {
+		%>
+		<input type="hidden" id="fromRequest"
+			value="<%=request.getParameter("from")%>">
+		<%
+			}
 			CourseResultsService courseOprt = new CourseResultsService();
 
 			List<CourseResultsPOJO> list = courseOprt.getAllReadableResults();
@@ -58,19 +64,31 @@
 						<td>${courseResults.getGpa()}</td>
 						<td>${courseResults.getGrade()}</td>
 						<td>${courseResults.getTotalPoints()}</td>
+						
 						<td><a
-							href="edit_course_results_form.jsp?id=${courseResults.getCourseResultId()}">Edit</a></td>
-						<td><a
-							href="delete_course_results.jsp?id=${courseResults.getCourseResultId()}" id="delete" >Delete</a></td>
+							href="delete_course_results.jsp?id=${courseResults.getCourseResultId()}"
+							id="delete">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<br /> <a href="add_course_results_form.jsp">Add New Course</a>
 	</div>
+	<script type="text/javascript">
+	
+		var fromRequest = document.getElementById("fromRequest").value;
+		if(fromRequest != null){
+			alertify.success('Course Result Added');
+			document.getElementById("fromRequest").value = null;
+		}else if( fromRequest == "from-delete"){
+			alertify.success('Course Result Deleted');
+			document.getElementById("fromRequest").value = null;
+		}
+		
+	</script>
 </body>
 <script type="text/javascript">
-var elementIsClicked = false; // declare the variable that tracks the state
+	var elementIsClicked = false; // declare the variable that tracks the state
 
 	function clickHandler() { // declare a function that updates the state
 		elementIsClicked = true;

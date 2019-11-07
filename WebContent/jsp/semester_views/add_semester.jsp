@@ -11,9 +11,8 @@
 	ICrudOperations<Semester> semesterService = new SemesterService();
 	
 	if (semesterService.save(std)) {
-		response.sendRedirect("add_semester_success.jsp");
-	} else {
-		response.sendRedirect("add_semester_error.jsp");
+		String str = "from-create";
+		response.sendRedirect("view_semesters.jsp?from="+str);
 	} 
 %>
 

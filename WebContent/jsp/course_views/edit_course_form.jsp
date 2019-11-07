@@ -12,6 +12,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.CourseService, com.ihsinformatics.gpaconvertor.entities.Course,
  com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations"%>
@@ -36,7 +37,7 @@
 	<div class="container">
 		<h1>Edit Course</h1>
 
-		<form action="add_course.jsp" method="post">
+		<form action="edit_course.jsp" method="post">
 			<input type="hidden" name="courseId"
 				value="<%=course.getCourseId()%>" />
 			<div class="form-group">
@@ -58,7 +59,7 @@
 					</c:forEach>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-default">Create Course</button>
+			<button type="submit" class="btn btn-default">Update Course</button>
 		</form>
 	</div>
 

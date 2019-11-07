@@ -11,9 +11,8 @@
 	ICrudOperations<Student> stdService = new StudentService();
 	
 	if (stdService.save(std)) {
-		response.sendRedirect("add_student_success.jsp");
-	} else {
-		response.sendRedirect("add_semester.jsp");
+		String str = "from-create";
+		response.sendRedirect("view_students.jsp?from="+str);
 	} 
 %>
 
