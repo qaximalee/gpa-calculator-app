@@ -45,7 +45,7 @@
 			
 		%>
 
-		<form action="${pageContext.request.contextPath}/addSemesterServlet" method="post">
+		<form action="add_semester_results.jsp" method="post">
 			<div class="form-group">
 				<label for="studentId">Student Id:</label> <select name="studentId"
 					required>

@@ -22,13 +22,18 @@
 			<div class="form-group">
 				<label for="semesterNo">Semester No:</label> <input type="text"
 					class="form-control" id="semesterNo"
-					placeholder="Enter Semester No" name="semesterNo">
+					placeholder="Enter Semester No" name="semesterNo" onchange="return isValid()">
 			</div>
 			<button type="submit" class="btn btn-default">Create
 				Semester</button>
 
 		</form>
 	</div>
-
+	<script type="text/javascript">
+		function isValid(){
+			var value = document.getElementById("semesterNo").value;
+			
+		}
+	</script>
 </body>
 </html>

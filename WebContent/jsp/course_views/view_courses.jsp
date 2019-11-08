@@ -69,7 +69,7 @@
 			alertify.success('Course Updated');
 			document.getElementById("fromRequest").value = null;
 		}else if( fromRequest == "from-delete"){
-			alertify.success('Course Deleted');
+			alertify.error('Course Deleted');
 			document.getElementById("fromRequest").value = null;
 		}
 	</script>

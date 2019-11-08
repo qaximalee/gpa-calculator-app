@@ -7,6 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- include the script -->
 <script src="../../js_lib/alertify.min.js"></script>
 <!-- include the style -->
@@ -15,7 +19,7 @@
 <link rel="stylesheet" href="../../js_lib/css/themes/default.min.css" />
 </head>
 <body>
-<jsp:include page="../header/nav_bar.jsp"></jsp:include>
+	<jsp:include page="../header/nav_bar.jsp"></jsp:include>
 	<%@page
 		import="com.ihsinformatics.gpaconvertor.services.StudentService, com.ihsinformatics.gpaconvertor.entities.Student,
  com.ihsinformatics.gpaconvertor.interfaces.ICrudOperations, java.util.List"%>
@@ -25,7 +29,8 @@
 	<%
 		if(request.getParameter("from") != null){ 
 		%>
-			<input type="hidden" id="fromRequest" value="<%= request.getParameter("from") %>">
+	<input type="hidden" id="fromRequest"
+		value="<%= request.getParameter("from") %>">
 	<%		
 		} 
 	
@@ -54,15 +59,23 @@
 						<td>${std.getLastName()}</td>
 						<td>${std.getRegistrationNo()}</td>
 						<td><a href="edit_student_form.jsp?id=${std.getStudentId()}">Edit</a></td>
-						<td><a href="delete_student.jsp?id=${std.getStudentId()}">Delete</a></td>
+						<td id="delete-student" onclick="deleteARecord()")><a href="delete_student.jsp?id=${std.getStudentId()}">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<br />
-		<a href="add_student_form.jsp">Add New Student</a>
+		<br /> <a href="add_student_form.jsp">Add New Student</a>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript">	
+		function deleteARecord(){
+			alertify.confirm(" Do you want to delete the record.",
+					  function(){
+					    alertify.success('Ok');
+					  },
+					  function(){
+					    alertify.error('Cancel');
+					  });
+		}
 	
 		var fromRequest = document.getElementById("fromRequest").value;
 		if(fromRequest == "from-create"){
@@ -72,7 +85,7 @@
 			alertify.success('Student Updated');
 			document.getElementById("fromRequest").value = null;
 		}else if( fromRequest == "from-delete"){
-			alertify.success('Student Deleted');
+			alertify.error('Student Deleted');
 			document.getElementById("fromRequest").value = null;
 		}
 	</script>

@@ -67,7 +67,7 @@
 			alertify.success('Semester Updated');
 			document.getElementById("fromRequest").value = null;
 		}else if( fromRequest == "from-delete"){
-			alertify.success('Semester Deleted');
+			alertify.error('Semester Deleted');
 			document.getElementById("fromRequest").value = null;
 		}
 	</script>
